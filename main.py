@@ -165,8 +165,7 @@ def main():
         draw.rectangle([stat_x + 15, sy_bar + 14, stat_x + 15 + int(bar_w * 0.8), sy_bar + 24], fill="#E11D48")
         sy_bar += 35
 
-    # 6 Sections (3 columns x 2 rows or similar layout)
-    # Let's organize sections compactly from y = 655 to 950
+    # 6 Sections (3 columns x 2 rows)
     sec_data = [
         ("EUROPE", [("Russian strikes kill 4 in Odesa", "At least 4 dead and 13 hurt."), ("Kyiv: no peace without Ukraine", "Zelenskyy insists on terms."), ("Europe shut out of Shenzhen", "Leaders debate influence."), ("COP31 talks turn tense", "Draft deal splits nations."), ("Van Gogh sells for $190.4m", "Record price amid row.")]),
         ("MIDDLE EAST", [("Iran defends Gulf strikes", "Tehran calls attacks defence."), ("Three tankers burn in Hormuz", "Fires reported in strait."), ("Israel pushes into central Gaza", "Rare incursion near Nuseirat."), ("Arab League condemns raids", "Bloc denounces hospital threats."), ("Lebanon charges Hezbollah men", "Recruitment and weapons case.")]),
@@ -178,7 +177,7 @@ def main():
 
     col_w = 318
     col_xs = [20, 353, 686]
-    row_ys = [655, 805]
+    row_ys = [645, 810]
 
     for idx, (sec_title, items) in enumerate(sec_data):
         c_idx = idx % 3
@@ -187,23 +186,23 @@ def main():
         cy = row_ys[r_idx]
         
         # Section background box
-        draw.rectangle([cx, cy, cx + col_w, cy + 142], fill="#FFFFFF", outline="#D1D5DB")
+        draw.rectangle([cx, cy, cx + col_w, cy + 158], fill="#FFFFFF", outline="#D1D5DB")
         # Red Header Bar
-        draw.rectangle([cx, cy, cx + col_w, cy + 18], fill="#991B1B")
-        draw.text((cx + 8, cy + 3), sec_title, fill="#FFFFFF", font=get_font("DejaVuSans-Bold.ttf", 10))
+        draw.rectangle([cx, cy, cx + col_w, cy + 16], fill="#991B1B")
+        draw.text((cx + 8, cy + 2), sec_title, fill="#FFFFFF", font=get_font("DejaVuSans-Bold.ttf", 9))
         
-        iy = cy + 22
-        for headline, deck in items[:4]: # show top 4 to fit cleanly
-            draw.text((cx + 8, iy), f"• {headline}", fill="#111827", font=get_font("DejaVuSans-Bold.ttf", 9))
+        iy = cy + 19
+        for headline, deck in items: # All 5 stories per section
+            draw.text((cx + 6, iy), f"• {headline}", fill="#111827", font=get_font("DejaVuSans-Bold.ttf", 9))
+            iy += 12
+            draw.text((cx + 14, iy), deck, fill="#4B5563", font=get_font("DejaVuSans.ttf", 9))
             iy += 14
-            draw.text((cx + 18, iy), deck, fill="#4B5563", font=get_font("DejaVuSans.ttf", 9))
-            iy += 15
 
     # Date Check & Footer
-    footer_y = 960
-    draw.rectangle([20, footer_y, 1004, footer_y + 54], fill="#FEF2F2", outline="#EF4444")
-    draw.text((35, footer_y + 8), "DATE CHECK — Every story on this page is verified for Thursday, 19 November 2026.", fill="#991B1B", font=get_font("DejaVuSans-Bold.ttf", 11))
-    draw.text((35, footer_y + 30), "THE WORLD IN ONE DAY  ·  PRODUCED DETERMINISTICALLY VIA PIL  ·  MAKE.FUN NEWS-IMAGE-20261119 V2", fill="#6B7280", font=sans_reg)
+    footer_y = 975
+    draw.rectangle([20, footer_y, 1004, footer_y + 42], fill="#FEF2F2", outline="#EF4444")
+    draw.text((35, footer_y + 4), "DATE CHECK — Every story on this page is verified for Thursday, 19 November 2026.", fill="#991B1B", font=get_font("DejaVuSans-Bold.ttf", 10))
+    draw.text((35, footer_y + 24), "THE WORLD IN ONE DAY  ·  PRODUCED DETERMINISTICALLY VIA PIL  ·  MAKE.FUN NEWS-IMAGE-20261119 V2", fill="#6B7280", font=sans_reg)
 
     img.save(out_path, "PNG")
     print(f"Successfully generated {out_path}")
